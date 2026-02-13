@@ -25,7 +25,7 @@
                     <label for="documento" class="form__label">Id de Usuario</label>
                     <input type="text" id="documento" class="form__input" name="documento" placeholder="Ingresa tu id">
                 </div>
-                <button id="validateBtn" class="btn btn--primary">
+                <button type="button" id="validateBtn" class="btn btn--primary">
                     <span class="btn__text">Validar Usuario</span>
                     <span class="btn__icon">✓</span>
                 </button>
@@ -53,8 +53,7 @@
 
 
         <!-- Formulario de registro de tareas -->
-         <!-- AGREGAR HIDDEN A LA CLASE -->
-        <section id="task-section" class="form-section ">
+        <section id="task-section" class="form-section hidden">
             <div class="card">
                 <h2 class="card__title">Registrar Nueva Tarea</h2>
 
@@ -62,7 +61,8 @@
                     <!-- Título de la tarea -->
                     <div class="form__group">
                         <label for="taskTitle" class="form__label">Título de la tarea</label>
-                        <input type="text" id="taskTitle" class="form__input" placeholder="Ingresa el titulo..." aria-required="true">
+                        <input type="text" id="taskTitle" class="form__input" placeholder="Ingresa el titulo..."
+                            aria-required="true">
                         <span class="form__error" id="taskTitleError"></span>
                     </div>
 
@@ -87,7 +87,7 @@
                     </div>
 
                     <!-- Botón de envío -->
-                    <button type="submit" class="btn btn--primary" id="btn--primary" >
+                    <button type="submit" class="btn btn--primary" id="btn--primary">
                         <span class="btn__text">Agregar Tarea</span>
                         <span class="btn__icon">➤</span>
                     </button>
