@@ -19,47 +19,18 @@
  * Seleccionamos los elementos del DOM que necesitamos manipular.
  * Usamos getElementById para obtener referencias a los elementos únicos.
  */
-
-// // Formulario
-// const messageForm = document.getElementById('messageForm');
-
-// // Campos de entrada
-// const userNameInput = document.getElementById('userName');
-// const userMessageInput = document.getElementById('userMessage');
-
-// // Botón de envío
-// const submitBtn = document.getElementById('submitBtn');
-
-// // Elementos para mostrar errores
-// const userNameError = document.getElementById('userNameError');
-// const userMessageError = document.getElementById('userMessageError');
-
-// // Contenedor donde se mostrarán los mensajes
-// const messagesContainer = document.getElementById('messagesContainer');
-
-// // Estado vacío (mensaje que se muestra cuando no hay mensajes)
-// const emptyState = document.getElementById('emptyState');
-
-// // Contador de mensajes
-// const messageCount = document.getElementById('messageCount');
-
-// // Variable para llevar el conteo de mensajes
-// let totalMessages = 0;
-
-// ============================================
-// 1. SELECCIÓN DE ELEMENTOS DEL DOM
-// ============================================
-
 const documentoInput = document.getElementById('documento');
+// Boton de validacion de usuario
 const validateBtn = document.getElementById('validateBtn');
-const formulario = document.getElementById(`form-section`)
+
+// Formulario principal
+const formulario = document.getElementById(`task-section`)
 const areaMensajes = document.getElementById(`messages-section`)
 
 const userInfoSection = document.getElementById('userInfo');
 const userNameDisplay = document.getElementById('userNameDisplay');
 const userEmailDisplay = document.getElementById('userEmailDisplay');
 
-const messageForm = document.getElementById('messageForm');
 const userNameInput = document.getElementById('userName');
 const userMessageInput = document.getElementById('userMessage');
 const userNameError = document.getElementById('userNameError');
@@ -68,6 +39,28 @@ const userMessageError = document.getElementById('userMessageError');
 const messagesContainer = document.getElementById('messagesContainer');
 const emptyState = document.getElementById('emptyState');
 const messageCount = document.getElementById('messageCount');
+
+// ===============
+// FORM PRINCIPAL
+// ===============
+// form total
+const taskForm = document.getElementById('taskForm');
+// input del titulo
+const taskTitleInput = document.getElementById('taskTitle');
+// input de la descripcion
+const taskDescriptionInput = document.getElementById('taskDescription');
+// input del statud
+const taskStatusInput = document.getElementById('taskStatus');
+// Boton submit del form principal
+const btnPrimary = document.getElementById((`btn--primary`))
+
+// sitio si hay un error en el titulo
+const taskTitleError = document.getElementById('taskTitleError');
+// sitio si hay un error en la descripcion
+const taskDescriptionError = document.getElementById('taskDescriptionError');
+// sitio si hay un error en el status
+const taskStatusError = document.getElementById('taskStatusError');
+
 
 // =============================
 // ESTADO GLOBAL
@@ -122,35 +115,28 @@ function clearError(errorElement) {
  * Valida todos los campos del formulario
  * @returns {boolean} - true si todos los campos son válidos, false si alguno no lo es
  */
-
 function validateForm() {
-
-
-    // EVALUAR LOS 3 QUE PONDRE MAS ADELANTE¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡
-    // Titulo, descripcion y estado. O algo asi 
-
-    const userName = userNameInput.value;
-    const userMessage = userMessageInput.value;
     let isValid = true;
 
-    // Validar nombre de usuario (solo letras y números, sin espacios)
-    if (!isValidAlphanumericInput(userName)) {
-        showError(userNameError, 'El nombre de usuario debe contener solo letras y números y no estar vacío.');
-        userNameInput.classList.add('error');
+    if (!isValidInput(taskTitleInput.value)) {
+        showError(taskTitleError, 'El título no puede estar vacío.');
         isValid = false;
     } else {
-        clearError(userNameError);
-        userNameInput.classList.remove('error');
+        clearError(taskTitleError);
     }
 
-    // Validar mensaje
-    if (!isValidInput(userMessage)) {
-        showError(userMessageError, 'El mensaje no puede estar vacío.');
-        userMessageInput.classList.add('error');
+    if (!isValidInput(taskDescriptionInput.value)) {
+        showError(taskDescriptionError, 'La descripción no puede estar vacía.');
         isValid = false;
     } else {
-        clearError(userMessageError);
-        userMessageInput.classList.remove('error');
+        clearError(taskDescriptionError);
+    }
+
+    if (!isValidInput(taskStatusInput.value)) {
+        showError(taskStatusError, 'Debes seleccionar un estado.');
+        isValid = false;
+    } else {
+        clearError(taskStatusError);
     }
 
     return isValid;
@@ -177,7 +163,7 @@ function getCurrentTimestamp() {
  * @param {string} name - Nombre completo
  * @returns {string} - Iniciales en mayúsculas
  */
-function getInitials(name) {
+function getInitials(name) { // IDK
     // Eliminar espacios en blanco al inicio y al final del nombre
     const trimmedName = name.trim();
     // Separar el nombre en palabras usando expresiones regulares para manejar múltiples espacios
@@ -195,15 +181,15 @@ function getInitials(name) {
  * Actualiza el contador de mensajes
  */
 function updateMessageCount() {
-    // TODO: Implementar actualización del contador
-    // Pista: Usa template literals para crear el texto
-    // Formato: "X mensaje(s)" o "X mensajes"
+    // Cambia el texto del span con id="messageCount"
+    messageCount.textContent = `${totalMessages} mensaje${totalMessages !== 1 ? 's' : ''}`;
 }
+
 
 /**
  * Oculta el estado vacío (mensaje cuando no hay mensajes)
  */
-function hideEmptyState() {
+function hideEmptyState() { // Que ya no esta en el showError del spam?
     // TODO: Implementar función para ocultar el estado vacío
     // Pista: Agrega la clase 'hidden' al elemento emptyState
 }
@@ -211,21 +197,21 @@ function hideEmptyState() {
 /**
  * Muestra el estado vacío (mensaje cuando no hay mensajes)
  */
-function showEmptyState() {
+function showEmptyState() { // Que ya no esta en el showError del spam?
     // TODO: Implementar función para mostrar el estado vacío
     // Pista: Remueve la clase 'hidden' del elemento emptyState
 }
 
 /**
  * Valida un usuario consultando la API mediante el ID ingresado.
- * Si el usuario existe, muestra su información y habilita el formulario.
+ * Si el usuario existe, muestra su información y habilita el formulario junto con sus respectiva informacion.
  * Si no existe, muestra un mensaje de error y deshabilita el formulario.
  */
 async function validateUser() {
-    const documento = documentoInput.value.trim();
+    const id = documentoInput.value.trim();
 
     // Validación inicial: solo números y no vacío
-    if (!documento || isNaN(documento)) {
+    if (!id || isNaN(id)) {
         alert("Debe ingresar un ID válido (solo números).");
         documentoInput.value = "";
         documentoInput.focus();
@@ -234,9 +220,7 @@ async function validateUser() {
     }
 
     try {
-        const response = await fetch(
-            `https://jsonplaceholder.typicode.com/users/${documento}`
-        );
+        const response = await fetch(`http://localhost:3000/users/${id}`);
 
         if (!response.ok) {
             throw new Error("Usuario no encontrado");
@@ -253,8 +237,10 @@ async function validateUser() {
         formulario.classList.remove('hidden');
         areaMensajes.classList.remove('hidden');
 
-        alert(`Usuario encontrado. \nHola ${user.name}.`);
+        // Confirmacion y saludo para el usuario
+        alert(`Hola ${user.name}.`);
 
+        console.log(currentUser)
         // Limpiar input después de enviar la info
         documentoInput.value = "";
 
@@ -287,36 +273,87 @@ async function validateUser() {
  * @param {string} userName - Nombre del usuario
  * @param {string} message - Contenido del mensaje
  */
-function createMessageElement(userName, message) {
-    // TODO: Implementar la creación de un nuevo mensaje
-
+function createMessageElement(tituloForm, descripcionForm, estadoForm) {
     // PASO 1: Crear el contenedor principal del mensaje
-    // Pista: document.createElement('div')
-    // Asignar la clase 'message-card'
+    const messageCard = document.createElement('div');
+    messageCard.classList.add('message-card');
 
-    // PASO 2: Crear la estructura HTML del mensaje
-    // Puedes usar innerHTML con la siguiente estructura:
-    /*
-    <div class="message-card__header">
-    <div class="message-card__user">
-    <div class="message-card__avatar">[INICIALES]</div>
-    <span class="message-card__username">[NOMBRE]</span>
-    </div>
-    <span class="message-card__timestamp">[FECHA]</span>
-    </div>
-    <div class="message-card__content">[MENSAJE]</div>
-    */
+    // PASO 2: Crear la estructura interna del mensaje
+    const timestamp = getCurrentTimestamp();
+
+    messageCard.innerHTML = `
+        <div class="message-card__header">
+            <div class="message-card__user">
+                <div class="message-card__avatar">${tituloForm.substring(0,2).toUpperCase()}</div>
+                <span class="message-card__username">${tituloForm}</span>
+            </div>
+            <span class="message-card__timestamp">${timestamp}</span>
+        </div>
+        <div class="message-card__content">
+            <p><strong>Descripción:</strong> ${descripcionForm}</p>
+            <p><strong>Estado:</strong> ${estadoForm}</p>
+        </div>
+    `;
 
     // PASO 3: Insertar el nuevo elemento en el contenedor de mensajes
-    // Pista: messagesContainer.appendChild(nuevoElemento)
-    // O usar insertBefore para agregarlo al principio
+    messagesContainer.insertBefore(messageCard, messagesContainer.firstChild);
 
     // PASO 4: Incrementar el contador de mensajes
+    totalMessages++;
 
     // PASO 5: Actualizar el contador visual
+    updateMessageCount();
 
     // PASO 6: Ocultar el estado vacío si está visible
+    hideEmptyState();
 }
+
+
+
+
+async function handleTaskSubmit(event) {
+    event.preventDefault();
+
+    if (!currentUser) {
+        alert("Primero debes validar un usuario.");
+        return;
+    }
+
+    if (!validateForm()) {
+        return;
+    }
+
+    const newTask = {
+        userId: currentUser.id,
+        title: taskTitleInput.value.trim(),
+        description: taskDescriptionInput.value.trim(),
+        status: taskStatusInput.value
+    };
+
+    try {
+        const response = await fetch("http://localhost:3000/tasks", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newTask)
+        });
+
+        if (!response.ok) throw new Error("Error al registrar la tarea");
+
+        const savedTask = await response.json();
+        console.log("✅ Tarea registrada:", savedTask);
+
+        // Aquí puedes crear un elemento en el DOM para mostrar la tarea
+        displayTask(savedTask);
+
+        taskForm.reset();
+    } catch (error) {
+        alert("No se pudo registrar la tarea.");
+        console.error(error);
+    }
+}
+
+
+
 
 
 // ============================================
@@ -339,13 +376,22 @@ function handleFormSubmit(event) {
         return;
     }
 
-    const userName = userNameInput.value.trim();
-    const message = userMessageInput.value.trim();
 
-    createMessageElement(userName, message);
+    // VALIDAR AQUI LOS DATOS LOS CUALES INGRESE EL USUARIO COMO LO SERIA EL TITULO, DESC Y ESTADO
+    const tituloForm = taskTitleInput.value.trim();
+    const descripcionForm = taskDescriptionInput.value.trim();
+    const estadoForm = taskStatusInput.value.trim();
 
-    messageForm.reset();
-    userNameInput.focus();
+    // CREA EL MENSAJE CON AGREGANDO LOS 3 PRINCIPALES
+    createMessageElement(tituloForm, descripcionForm, estadoForm);
+
+    // Limpia el area de notas
+    taskTitleInput.reset();
+    taskDescriptionInput.reset();
+    taskStatusInput.reset();
+
+    // Re direcciona al titulo de la tarea
+    taskTitleInput.focus();
 }
 
 
@@ -368,12 +414,20 @@ function handleInputChange() {
 // Evento para confirmar si se encuentra al usuario
 validateBtn.addEventListener("click", validateUser);
 
+
+
 /**
  * Aquí registramos todos los event listeners
 */
 
 // TODO: Registrar el evento 'submit' en el formulario
-messageForm.addEventListener('submit', handleFormSubmit);
+btnPrimary.addEventListener("click", (e) => {
+    e.preventDefault(); // Esto evita que el formulario recargue la página
+    validateForm(); // Validamos que ningun campo este vacio. (Retorno: true | false)
+
+});
+
+
 
 // TODO: Registrar eventos 'input' en los campos para limpiar errores al escribir
 // Pista: userNameInput.addEventListener('input', handleInputChange);

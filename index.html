@@ -52,35 +52,49 @@
 
 
 
-        <!-- Formulario de entrada -->
-        <section id="form-section" class="form-section hidden">
+        <!-- Formulario de registro de tareas -->
+         <!-- AGREGAR HIDDEN A LA CLASE -->
+        <section id="task-section" class="form-section ">
             <div class="card">
-                <h2 class="card__title">Nuevo Mensaje</h2>
+                <h2 class="card__title">Registrar Nueva Tarea</h2>
 
-                <form id="messageForm" class="form" novalidate>
+                <form id="taskForm" class="form" novalidate>
+                    <!-- Título de la tarea -->
                     <div class="form__group">
-                        <label for="userName" class="form__label">
-                            Nombre de usuario
-                        </label>
-                        <input type="text" id="userName" class="form__input" placeholder="Ingresa tu nombre"
-                            aria-required="true">
-                        <span class="form__error" id="userNameError"></span>
+                        <label for="taskTitle" class="form__label">Título de la tarea</label>
+                        <input type="text" id="taskTitle" class="form__input" placeholder="Ingresa el titulo..." aria-required="true">
+                        <span class="form__error" id="taskTitleError"></span>
                     </div>
 
+                    <!-- Descripción de la tarea -->
                     <div class="form__group">
-                        <label for="userMessage" class="form__label"> Tu mensaje </label>
-                        <textarea id="userMessage" class="form__input form__textarea"
-                            placeholder="Escribe tu mensaje aquí..." rows="4" aria-required="true"></textarea>
-                        <span class="form__error" id="userMessageError"></span>
+                        <label for="taskDescription" class="form__label">Descripción</label>
+                        <textarea id="taskDescription" class="form__input form__textarea"
+                            placeholder="Describe la tarea en detalle..." rows="4" aria-required="true"></textarea>
+                        <span class="form__error" id="taskDescriptionError"></span>
                     </div>
 
-                    <button type="submit" class="btn btn--primary" id="submitBtn">
-                        <span class="btn__text">Agregar Mensaje</span>
+                    <!-- Estado de la tarea -->
+                    <div class="form__group">
+                        <label for="taskStatus" class="form__label">Estado</label>
+                        <select id="taskStatus" class="form__input" aria-required="true">
+                            <option value="">Selecciona un estado</option>
+                            <option value="pendiente">Pendiente</option>
+                            <option value="en-progreso">En progreso</option>
+                            <option value="completada">Completada</option>
+                        </select>
+                        <span class="form__error" id="taskStatusError"></span>
+                    </div>
+
+                    <!-- Botón de envío -->
+                    <button type="submit" class="btn btn--primary" id="btn--primary" >
+                        <span class="btn__text">Agregar Tarea</span>
                         <span class="btn__icon">➤</span>
                     </button>
                 </form>
             </div>
         </section>
+
 
         <!-- Área de mensajes -->
         <section id="messages-section" class="messages-section hidden">
