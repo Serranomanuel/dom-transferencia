@@ -10,38 +10,40 @@
 
 <body>
     <div class="container">
-        <!-- Encabezado principal -->
+        <!-- ENCABEZADO PRINCIPAL  -->
         <header class="header">
             <h1 class="header__title">Registro de Mensajes</h1>
             <p class="header__subtitle">Practica la manipulación del DOM en tiempo real</p>
         </header>
 
-        <!-- validacion de usuario -->
+        <!-- VALIDACION DE USUARIO -->
         <section class="validation-section">
             <div class="card">
                 <h2 class="card__title">Validación de Usuario</h2>
 
                 <div class="form__group">
                     <label for="documento" class="form__label">Id de Usuario</label>
-                    <input type="text" id="documento" class="form__input" name="documento" placeholder="Ingresa tu id">
+                    <input type="text" id="documento" class="form__input" name="documento" placeholder="Ingresa tu id...">
                 </div>
-                <button id="validateBtn" class="btn btn--primary">
+                <button type="button" id="validateBtn" class="btn btn--primary">
                     <span class="btn__text">Validar Usuario</span>
                     <span class="btn__icon">✓</span>
                 </button>
             </div>
         </section>
 
-        <!-- Mostrar informacion de usuario -->
+        <!-- MOSTRAR INFORMACION DE USUARIO  -->
         <section id="userInfo" class="validation-section hidden">
             <div class="card">
                 <h2 class="card__title">Usuario encontrado</h2>
 
+                <!-- nombre -->
                 <div class="user-info__item">
                     <span class="user-info__label">Nombre:</span>
                     <span id="userNameDisplay" class="user-info__value"></span>
                 </div>
 
+                <!-- email -->
                 <div class="user-info__item">
                     <span class="user-info__label">Email:</span>
                     <span id="userEmailDisplay" class="user-info__value"></span>
@@ -50,11 +52,8 @@
         </section>
 
 
-
-
-        <!-- Formulario de registro de tareas -->
-         <!-- AGREGAR HIDDEN A LA CLASE -->
-        <section id="task-section" class="form-section ">
+        <!-- FORMULARIO DE REGISTRO DE TAREAS -->
+        <section id="task-section" class="form-section hidden">
             <div class="card">
                 <h2 class="card__title">Registrar Nueva Tarea</h2>
 
@@ -69,8 +68,7 @@
                     <!-- Descripción de la tarea -->
                     <div class="form__group">
                         <label for="taskDescription" class="form__label">Descripción</label>
-                        <textarea id="taskDescription" class="form__input form__textarea"
-                            placeholder="Describe la tarea en detalle..." rows="4" aria-required="true"></textarea>
+                        <textarea id="taskDescription" class="form__input form__textarea" placeholder="Describe la tarea en detalle..." rows="4" aria-required="true"></textarea>
                         <span class="form__error" id="taskDescriptionError"></span>
                     </div>
 
@@ -87,7 +85,7 @@
                     </div>
 
                     <!-- Botón de envío -->
-                    <button type="submit" class="btn btn--primary" id="btn--primary" >
+                    <button type="submit" class="btn btn--primary" id="btn--primary">
                         <span class="btn__text">Agregar Tarea</span>
                         <span class="btn__icon">➤</span>
                     </button>
@@ -96,18 +94,19 @@
         </section>
 
 
-        <!-- Área de mensajes -->
+        <!-- AREA DE MENSAJES -->
         <section id="messages-section" class="messages-section hidden">
+            <!-- numero de mensajes publicados -->
             <div class="messages-header">
                 <h2 class="messages-header__title">Mensajes Publicados</h2>
                 <span class="messages-header__count" id="messageCount">0 mensajes</span>
             </div>
 
+            <!-- zona de mensajes publicados -->
             <div id="messagesContainer" class="messages-container">
                 <!-- Los mensajes se agregarán aquí dinámicamente -->
                 <div class="messages-empty" id="emptyState">
-                    <svg class="messages-empty__icon" width="64" height="64" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor">
+                    <svg class="messages-empty__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                     </svg>
                     <p class="messages-empty__text">Aún no hay mensajes</p>
@@ -116,13 +115,13 @@
             </div>
         </section>
 
-        <!-- Footer informativo -->
+        <!-- FOOTER INFORMATIVO -->
         <footer class="footer">
             <p class="footer__text">Ejercicio de manipulación del DOM | SENA - Desarrollo Web</p>
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <!-- ENLAZAR EL CODIGO -->
+    <script src="./servidor/script.js"></script>
 </body>
-
 </html>
