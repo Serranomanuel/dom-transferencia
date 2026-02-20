@@ -446,6 +446,33 @@ taskForm.addEventListener("submit", handleTaskSubmit);
 taskTitleInput.addEventListener('input', () => clearError(taskTitleError));
 taskDescriptionInput.addEventListener('input', () => clearError(taskDescriptionError));
 taskStatusInput.addEventListener('change', () => clearError(taskStatusError));
+<<<<<<< HEAD:servidor/script.js
+=======
+
+
+// ============================================
+// 6. REFLEXIÓN Y DOCUMENTACIÓN
+// ============================================
+
+/**
+ * PREGUNTAS DE REFLEXIÓN:
+ * 
+ * 1. ¿Qué elemento del DOM estás seleccionando?
+ *    R: 
+ * 
+ * 2. ¿Qué evento provoca el cambio en la página?
+ *    R: 
+ * 
+ * 3. ¿Qué nuevo elemento se crea?
+ *    R: 
+ * 
+ * 4. ¿Dónde se inserta ese elemento dentro del DOM?
+ *    R: 
+ * 
+ * 5. ¿Qué ocurre en la página cada vez que repites la acción?
+ *    R: 
+ */
+>>>>>>> main:script.js
 
 
 // ============================================

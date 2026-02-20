@@ -51,6 +51,7 @@
       "email": "valentina.rios@example.com"
     }
   ],
+<<<<<<< HEAD:servidor/db.json
   "tasks": [
     {
       "id": "d4a0",
@@ -60,4 +61,7 @@
       "status": "pendiente"
     }
   ]
+=======
+  "tasks": []
+>>>>>>> main:db.json
 }
