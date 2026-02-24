@@ -6,6 +6,7 @@ import { validateUserService } from "./services/userService.js";
 import { getTasksByUser, saveTask } from "./services/tasksService.js";
 import { renderTasks } from "./ui/tasksUI.js";
 import { showUserSections, hideUserSections } from "./ui/layoutUI.js";
+import { hideUserUI } from "./ui/uiState.js";
 
 const validateBtn = document.getElementById("validateBtn");
 const documentoInput = document.getElementById("documento");
@@ -18,9 +19,12 @@ const container = document.getElementById("messagesContainer");
 const nameDisplay = document.getElementById("userNameDisplay");
 const emailDisplay = document.getElementById("userEmailDisplay");
 
-let currentUser = null;
+const emptyState = document.getElementById("emptyState")
 
-// 🔒 Al iniciar solo se ve validación
+let currentUser = null;
+let tasksUser = []
+
+// Al iniciar solo se ve validación
 hideUserSections(userInfo, form, messages);
 
 // ================= VALIDAR USUARIO =================
@@ -33,24 +37,37 @@ validateBtn.addEventListener("click", async () => {
     }
 
     try {
+        tasksUser = []
+        currentUser = null
         currentUser = await validateUserService(id);
+
+        if (currentUser == null) {
+            hideUserUI(userInfo, form, messages);
+            alert("Usuario no registrado")
+            console.log("Usuario no registrado")
+            return;
+        }
 
         nameDisplay.textContent = currentUser.name;
         emailDisplay.textContent = currentUser.email;
 
         showUserSections(userInfo, form, messages);
 
-        const tasks = await getTasksByUser(currentUser.id);
-        renderTasks(container, tasks, currentUser);
 
-    } catch {
+
+        tasksUser = await getTasksByUser(currentUser.id, emptyState);
+        renderTasks(container, tasksUser, currentUser, emptyState);
+
+    } catch (error) {
         alert("Usuario no encontrado");
+        console.log(error)
     }
 });
 
 // ================= CREAR TAREA =================
 document.getElementById("taskForm").addEventListener("submit", async e => {
     e.preventDefault();
+
     if (!currentUser) return alert("Primero valida usuario");
 
     const task = {
@@ -63,6 +80,8 @@ document.getElementById("taskForm").addEventListener("submit", async e => {
 
     await saveTask(task);
 
-    const tasks = await getTasksByUser(currentUser.id);
-    renderTasks(container, tasks, currentUser);
+    tasksUser = await getTasksByUser(currentUser.id);
+    renderTasks(container, tasksUser, currentUser);
+
+
 });
