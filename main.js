@@ -4,7 +4,7 @@
 
 import { validateUserService } from "./services/userService.js";
 import { getTasksByUser, saveTask } from "./services/tasksService.js";
-import { renderTasks } from "./ui/tasksUI.js";
+import { renderTasks, resetDocumentInput } from "./ui/tasksUi.js";
 import { showUserSections, hideUserSections } from "./ui/layoutUI.js";
 
 const validateBtn = document.getElementById("validateBtn");
@@ -29,6 +29,7 @@ validateBtn.addEventListener("click", async () => {
 
     if (!id || isNaN(id)) {
         alert("ID inválido");
+        resetDocumentInput(documentoInput);
         return;
     }
 
@@ -43,8 +44,11 @@ validateBtn.addEventListener("click", async () => {
         const tasks = await getTasksByUser(currentUser.id);
         renderTasks(container, tasks, currentUser);
 
+        resetDocumentInput(documentoInput);
+
     } catch {
         alert("Usuario no encontrado");
+        resetDocumentInput(documentoInput);
     }
 });
 

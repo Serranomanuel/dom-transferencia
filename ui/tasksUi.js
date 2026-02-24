@@ -33,3 +33,11 @@ export function renderTasks(container, tasks, currentUser) {
         container.appendChild(card);
     });
 }
+
+export function resetDocumentInput(documentoInput) {
+    // 1. Limpiamos el valor (reset)
+    documentoInput.value = '';
+    
+    // 2. Le quitamos el foco para que el cursor no siga parpadeando ahí
+    documentoInput.blur(); 
+}
