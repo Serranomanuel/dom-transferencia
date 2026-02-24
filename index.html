@@ -23,7 +23,8 @@
 
                 <div class="form__group">
                     <label for="documento" class="form__label">Id de Usuario</label>
-                    <input type="text" id="documento" class="form__input" name="documento" placeholder="Ingresa tu id...">
+                    <input type="text" id="documento" class="form__input" name="documento"
+                        placeholder="Ingresa tu id...">
                 </div>
                 <button type="button" id="validateBtn" class="btn btn--primary">
                     <span class="btn__text">Validar Usuario</span>
@@ -61,14 +62,16 @@
                     <!-- Título de la tarea -->
                     <div class="form__group">
                         <label for="taskTitle" class="form__label">Título de la tarea</label>
-                        <input type="text" id="taskTitle" class="form__input" placeholder="Ingresa el titulo..." aria-required="true">
+                        <input type="text" id="taskTitle" class="form__input" placeholder="Ingresa el titulo..."
+                            aria-required="true">
                         <span class="form__error" id="taskTitleError"></span>
                     </div>
 
                     <!-- Descripción de la tarea -->
                     <div class="form__group">
                         <label for="taskDescription" class="form__label">Descripción</label>
-                        <textarea id="taskDescription" class="form__input form__textarea" placeholder="Describe la tarea en detalle..." rows="4" aria-required="true"></textarea>
+                        <textarea id="taskDescription" class="form__input form__textarea"
+                            placeholder="Describe la tarea en detalle..." rows="4" aria-required="true"></textarea>
                         <span class="form__error" id="taskDescriptionError"></span>
                     </div>
 
@@ -106,8 +109,9 @@
             <div id="messagesContainer" class="messages-container">
                 <!-- Los mensajes se agregarán aquí dinámicamente -->
                 <div class="messages-empty" id="emptyState">
-                    <svg class="messages-empty__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-   
+                    <svg class="messages-empty__icon" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor">
+
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                     </svg>
                     <p class="messages-empty__text">Aún no hay mensajes</p>
@@ -122,8 +126,9 @@
         </footer>
     </div>
 
-    
+
     <!-- ENLAZAR EL CODIGO -->
-    <script src="script.js" type="module"></script>
+    <script src="main.js" type="module"></script>
 </body>
+
 </html>
