@@ -4,7 +4,7 @@
 
 import { validateUserService } from "./services/userService.js";
 import { getTasksByUser, saveTask } from "./services/tasksService.js";
-import { renderTasks } from "./ui/tasksU.js";
+import { renderTasks } from "./ui/tasksUI.js";
 import { showUserSections, hideUserSections } from "./ui/layoutUI.js";
 import { hideUserUI } from "./ui/uiState.js";
 
