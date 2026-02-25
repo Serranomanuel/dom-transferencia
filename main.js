@@ -3,9 +3,11 @@
 // ---------------------------------------------------------------
 
 import { validateUserService } from "./services/userService.js";
-import { getTasksByUser, saveTask } from "./services/tasksService.js";
-import { renderTasks } from "./ui/tasksUI.js";
+import { filterTasks, getTasksByUser, saveTask, sortTasks } from "./services/tasksService.js";
+import { renderTasks, resetFiltersUI, tasksNull } from "./ui/tasksUI.js";
 import { showUserSections, hideUserSections } from "./ui/layoutUI.js";
+import { hideEmpty, hideUserUI } from "./ui/uiState.js";
+import { getSelectedValues, processTasks } from "./utils/helpers.js";
 
 const validateBtn = document.getElementById("validateBtn");
 const documentoInput = document.getElementById("documento");
@@ -18,9 +20,23 @@ const container = document.getElementById("messagesContainer");
 const nameDisplay = document.getElementById("userNameDisplay");
 const emailDisplay = document.getElementById("userEmailDisplay");
 
-let currentUser = null;
+const emptyState = document.getElementById("emptyState");
 
-// 🔒 Al iniciar solo se ve validación
+const taskTitle = document.getElementById("taskTitle");
+const taskDescription = document.getElementById("taskDescription")
+const taskStatus = document.getElementById("taskStatus")
+
+const messagesFilters = document.getElementById("messagesFilters")
+
+// Area de filtro y orden
+const sortTasksArea = document.getElementById('sortTasks')
+const applyFiltersBtn = document.getElementById('applyFiltersBtn')
+const filterStatus = document.querySelectorAll(".filterStatus")
+
+let currentUser = null;
+let tasksUser = []
+
+// Al iniciar solo se ve validación
 hideUserSections(userInfo, form, messages);
 
 // ================= VALIDAR USUARIO =================
@@ -33,24 +49,43 @@ validateBtn.addEventListener("click", async () => {
     }
 
     try {
+        tasksUser = []
+        currentUser = null
         currentUser = await validateUserService(id);
+
+        if (currentUser == null) {
+            hideUserUI(userInfo, form, messages);
+            alert("Usuario no registrado")
+            console.log("Usuario no registrado")
+            return;
+        }
 
         nameDisplay.textContent = currentUser.name;
         emailDisplay.textContent = currentUser.email;
 
         showUserSections(userInfo, form, messages);
 
-        const tasks = await getTasksByUser(currentUser.id);
-        renderTasks(container, tasks, currentUser);
+        tasksUser = await getTasksByUser(currentUser.id, container, messagesFilters);
 
-    } catch {
+        if (tasksUser.length == 0) {
+            hideEmpty(messagesFilters)
+            tasksNull(container)
+        } else {
+            renderTasks(container, tasksUser, currentUser);
+        }
+
+        resetFiltersUI(filterStatus, sortTasksArea)
+
+    } catch (error) {
         alert("Usuario no encontrado");
+        console.log("Se ha presentado un error: " + error)
     }
 });
 
 // ================= CREAR TAREA =================
 document.getElementById("taskForm").addEventListener("submit", async e => {
     e.preventDefault();
+
     if (!currentUser) return alert("Primero valida usuario");
 
     const task = {
@@ -63,6 +98,22 @@ document.getElementById("taskForm").addEventListener("submit", async e => {
 
     await saveTask(task);
 
-    const tasks = await getTasksByUser(currentUser.id);
-    renderTasks(container, tasks, currentUser);
+    tasksUser = await getTasksByUser(currentUser.id, emptyState);
+    renderTasks(container, tasksUser, currentUser, emptyState, messagesFilters);
+
+    taskTitle.value = ''
+    taskDescription.value = ''
+    taskStatus.value = ''
+});
+
+// ================= FILTRAR Y ORDENAR =================
+applyFiltersBtn.addEventListener("click", () => {
+    const estados = getSelectedValues(filterStatus);
+    const sort = sortTasksArea.value;
+
+    const result = processTasks(tasksUser, estados, sort, filterTasks, sortTasks);
+
+    result.length === 0
+        ? tasksNull(container)
+        : renderTasks(container, result, currentUser);
 });

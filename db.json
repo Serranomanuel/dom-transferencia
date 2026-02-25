@@ -51,30 +51,5 @@
       "email": "valentina.rios@example.com"
     }
   ],
-  "tasks": [
-    {
-      "id": "056c",
-      "userId": "3",
-      "title": "1",
-      "description": "1",
-      "status": "pendiente",
-      "createdAt": "2026-02-23T21:44:15.097Z"
-    },
-    {
-      "id": "b1be",
-      "userId": "3",
-      "title": "2",
-      "description": "2",
-      "status": "en-progreso",
-      "createdAt": "2026-02-23T21:44:28.129Z"
-    },
-    {
-      "id": "c2c7",
-      "userId": "3",
-      "title": "3",
-      "description": "3",
-      "status": "completada",
-      "createdAt": "2026-02-23T21:44:38.192Z"
-    }
-  ]
+  "tasks": []
 }
