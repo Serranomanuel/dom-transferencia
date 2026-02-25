@@ -3,14 +3,14 @@
 // ---------------------------------------------------------------
 
 import { getInitials, getCurrentTimestamp } from "../utils/helpers.js";
+import { showEmpty } from "./uiState.js";
 
 export function renderTasks(container, tasks, currentUser) {
-
+    showEmpty(messagesFilters)
     container.innerHTML = "";
 
     // Si no hay tareas, corta el proceso y lo indica
     if (tasks.length == 0) {
-        tasks = null
         // Inserta el nuevo bloque HTML
         tasksNull(container)
         return tasks;
@@ -50,3 +50,14 @@ export function tasksNull(container) {
     `;
 }
 
+export function resetFiltersUI(filterStatus, sortTasks) {
+
+    // desmarcar checkboxes
+    filterStatus.forEach(cb => {
+        cb.checked = false;
+    });
+
+    // resetear select
+    sortTasks.value = "";
+
+}
