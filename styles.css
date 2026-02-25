@@ -438,6 +438,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: var(--spacing-3xl) var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
     background: var(--color-surface);
     border-radius: var(--radius-lg);
     border: 2px dashed var(--color-gray-200);
@@ -532,6 +533,7 @@ body {
     background: var(--color-surface);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
+    margin-top: var(--spacing-md);
 }
 
 .footer__text {
