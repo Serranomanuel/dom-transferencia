@@ -1,0 +1,55 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Juan Pérez",
+      "email": "juan.perez@example.com"
+    },
+    {
+      "id": "2",
+      "name": "María Gómez",
+      "email": "maria.gomez@example.com"
+    },
+    {
+      "id": "3",
+      "name": "Jhon Bueno",
+      "email": "jhonbuenoa@example.com"
+    },
+    {
+      "id": "4",
+      "name": "Ana Torres",
+      "email": "ana.torres@example.com"
+    },
+    {
+      "id": "5",
+      "name": "Luis Fernández",
+      "email": "luis.fernandez@example.com"
+    },
+    {
+      "id": "6",
+      "name": "Sofía Martínez",
+      "email": "sofia.martinez@example.com"
+    },
+    {
+      "id": "7",
+      "name": "Pedro López",
+      "email": "pedro.lopez@example.com"
+    },
+    {
+      "id": "8",
+      "name": "Laura Castillo",
+      "email": "laura.castillo@example.com"
+    },
+    {
+      "id": "9",
+      "name": "Andrés Herrera",
+      "email": "andres.herrera@example.com"
+    },
+    {
+      "id": "10",
+      "name": "Valentina Ríos",
+      "email": "valentina.rios@example.com"
+    }
+  ],
+  "tasks": []
+}
