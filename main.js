@@ -8,7 +8,7 @@ import { renderTasks, resetFiltersUI, tasksNull } from "./ui/tasksUI.js";
 import { showUserSections, hideUserSections } from "./ui/layoutUI.js";
 import { hideEmpty, hideUserUI } from "./ui/uiState.js";
 import { getSelectedValues, processTasks } from "./utils/helpers.js";
-
+import { showNotification } from "./ui/notificationsUI.js";
 import { generateTasksJSON } from "./services/exportService.js";
 import { downloadJSONFile } from "./ui/exportUI.js";
 
@@ -50,9 +50,12 @@ hideUserSections(userInfo, form, messages);
 validateBtn.addEventListener("click", async () => {
     const id = documentoInput.value.trim();
 
+    documentoInput.value = "";
+    documentoInput.blur();
+
     if (!id || isNaN(id)) {
-        alert("ID inválido");
-        return;
+    showNotification("ID inválido. Por favor, ingresa un número.", "warning");
+    return;
     }
 
     try {
@@ -80,12 +83,12 @@ validateBtn.addEventListener("click", async () => {
         } else {
             renderTasks(container, tasksUser, currentUser);
         }
-
+        showNotification(`¡Hola de nuevo, ${currentUser.name}!`, "success");
         resetFiltersUI(filterStatus, sortTasksArea)
 
     } catch (error) {
-        alert("Usuario no encontrado");
-        console.log("Se ha presentado un error: " + error)
+    showNotification("Usuario no encontrado en la base de datos.", "error");        
+    console.log("Se ha presentado un error: " + error)
     }
 });
 
@@ -93,7 +96,9 @@ validateBtn.addEventListener("click", async () => {
 document.getElementById("taskForm").addEventListener("submit", async e => {
     e.preventDefault();
 
-    if (!currentUser) return alert("Primero valida usuario");
+    if (!currentUser)
+        showNotification("Primero debes validar tu usuario.", "warning"); 
+        return;
 
     const task = {
         userId: currentUser.id,
@@ -107,6 +112,8 @@ document.getElementById("taskForm").addEventListener("submit", async e => {
 
     tasksUser = await getTasksByUser(currentUser.id, emptyState);
     renderTasks(container, tasksUser, currentUser, emptyState, messagesFilters);
+    showNotification("¡Tarea registrada con éxito!", "success");
+    e.target.reset();
 
     taskTitle.value = ''
     taskDescription.value = ''
